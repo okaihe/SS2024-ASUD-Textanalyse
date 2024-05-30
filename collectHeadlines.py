@@ -1,12 +1,12 @@
+import csv
 import os
 import re
-import csv
 from typing import Dict, List
 
 from bs4 import BeautifulSoup
 
 
-def collect_article_content_from(path: str) -> List[Dict[str, str]]:
+def collect_article_contents_from(path: str) -> List[Dict[str, str]]:
     collection = []
     dates = os.listdir(path)
     count_articles = 0
@@ -18,8 +18,8 @@ def collect_article_content_from(path: str) -> List[Dict[str, str]]:
             for article in article_list:
                 if article != "rss.json":
                     count_articles += 1
-                    print('\r', end='')
-                    print(f"Scanned articles: {count_articles} - scanning: {article}", end='')
+                    print("\r", end="")
+                    print(f"Scanned articles: {count_articles} - scanning: {article}", end="")
                     article_content = get_content_of(f"{path}/{date}/{category}/{article}")
                     article_text = extract_text_from_html_article(article_content)
                     collection.append(
@@ -58,11 +58,12 @@ def extract_text_from_html_article(html_text: str) -> str:
 
 
 def convert_filename_to_article_headline(article_filename: str) -> str:
-    parts = (" ").join(article_filename.split("-")[:-1])
-    return parts
+    headline = (" ").join(article_filename.split("-")[:-1])
+    return headline
 
-content = collect_article_content_from('ntv-data')
-with open('data.csv', 'w', encoding='utf-8', newline='') as output_file:
+
+content = collect_article_contents_from("ntv-data")
+with open("data.csv", "w", encoding="utf-8", newline="") as output_file:
     fc = csv.DictWriter(output_file, fieldnames=content[0].keys())
     fc.writeheader()
     fc.writerows(content)

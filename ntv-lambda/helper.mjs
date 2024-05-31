@@ -59,10 +59,14 @@ function getLinksOfRssItems(rssItems) {
 }
 
 function cleanHTMLContent(htmlString) {
-    let cleaned = htmlString.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script\s*>/gi, "");
-    cleaned = cleaned.replace(/<nav\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/nav\s*>/gi, "");
-    cleaned = cleaned.replace(/<style\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/style\s*>/gi, "");
-    cleaned = cleaned.replace(/<link\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/link\s*>/gi, "");
+    let cleaned = htmlString.replace(
+        /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script\s*>/gi, "");
+    cleaned = cleaned.replace(
+        /<nav\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/nav\s*>/gi, "");
+    cleaned = cleaned.replace(
+        /<style\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/style\s*>/gi, "");
+    cleaned = cleaned.replace(
+        /<link\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/link\s*>/gi, "");
     return cleaned;
 }
 

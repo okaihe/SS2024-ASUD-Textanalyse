@@ -10,5 +10,7 @@ Das Repository ist wie folgt aufgebaut:
 
 - `ntv-data/` Hierin sind die Rohdaten enthalten. Die Artikel sind zunächst nach dem jeweiligen Datum und anschließend nach deren Kategorie sortiert.
 - `ntv-lambda/` Hierin ist die Lambda-Funktion zum täglichen Abrufen der Artikel enthalten.
+- `data.csv` Die Artikel sowie deren Überschriften und Erscheinungsdaten gesammelt in einer `csv`-Datei.
+- `sentiment.csv` Die Daten der `data.csv`-Datei erweitert um die Ergebnisse der Sentiment-Analyse.
 - `1-Datengenerierung.ipynb` Der Code, zum Erstellen der `data.csv`, die als Grundlage der Analyse dient.
 - `2-Datenanalyse.ipynb` Die Analyse der Nachrichtenartiekl.

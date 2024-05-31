@@ -62,8 +62,8 @@ def convert_filename_to_article_headline(article_filename: str) -> str:
     return headline
 
 
-content = collect_article_contents_from("ntv-data")
-with open("data.csv", "w", encoding="utf-8", newline="") as output_file:
-    fc = csv.DictWriter(output_file, fieldnames=content[0].keys())
-    fc.writeheader()
-    fc.writerows(content)
+# content = collect_article_contents_from("ntv-data")
+# with open("data.csv", "w", encoding="utf-8", newline="") as output_file:
+#     fc = csv.DictWriter(output_file, fieldnames=content[0].keys())
+#     fc.writeheader()
+#     fc.writerows(content)

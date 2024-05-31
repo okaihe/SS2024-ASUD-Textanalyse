@@ -1,11 +1,14 @@
 from germansentiment import SentimentModel
-from collectHeadlines import collect_article_contents_from
 
-model = SentimentModel()
+import pandas as pd
 
-articles = collect_article_contents_from("ntv-data")
+pd.read_csv('data.csv')
 
-headlines = [article["headline"] for article in articles]
-
-classes = model.predict_sentiment(headlines)
-print(classes)
+# model = SentimentModel()
+#
+# articles = collect_article_contents_from("ntv-data")
+#
+# headlines = [article["headline"] for article in articles]
+#
+# classes = model.predict_sentiment(headlines)
+# print(classes)

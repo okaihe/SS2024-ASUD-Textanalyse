@@ -65,8 +65,8 @@ function cleanHTMLContent(htmlString) {
         /<nav\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/nav\s*>/gi, "");
     cleaned = cleaned.replace(
         /<style\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/style\s*>/gi, "");
-    cleaned = cleaned.replace(
-        /<link\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/link\s*>/gi, "");
+    cleaned = 
+        cleaned.replace(/<link\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/link\s*>/gi, "");
     return cleaned;
 }
 

@@ -1,3 +1,5 @@
+%! TEX program = pdf_escaped
+
 \documentclass[12pt]{article}
 
 % Packages
@@ -10,6 +12,12 @@
 \usepackage{caption}
 \usepackage{listings}
 \usepackage{color}
+\usepackage[parfill]{parskip}
+\usepackage[ngerman]{babel}
+\usepackage{microtype}
+\usepackage{svg}
+\usepackage{csquotes}
+\MakeOuterQuote{"}
 
 % Colors
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -17,10 +25,9 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 \definecolor{lightgray}{rgb}{.9,.9,.9}
 \definecolor{darkgray}{rgb}{.4,.4,.4}
-\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{purple}{rgb}{0.66, 0.12, 0.82}
 
 % Javascript
-
 \lstdefinelanguage{JavaScript}{
     keywords={typeof, new, let, for, const, continue, of, await, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, try, catch, throw, async },
     keywordstyle=\color{blue}\bfseries,
@@ -50,7 +57,8 @@
     stringstyle=\color{mauve},
     breaklines=true,
     breakatwhitespace=true,
-    tabsize=4
+    tabsize=4,
+    frame=none
 }
 
 % Settings
@@ -64,9 +72,12 @@
 
 % Title page
 \title{%
+    \includegraphics[width=5cm]{figures/logo.png}
+    \\
+    \vspace{1cm}
     \textbf{Zusätzliche Beteiligung}\\
     \bigskip
-    \large Analyse der Artikel des Nachrichtensenders NTV
+    \large Verwendeter Code zur Analyse von Artikeln des Nachrichtensenders \emph{n-tv}
 }
 \author{Kai Herbst, Manuel Zeh, Henrik Popp}
 \date{August 2024}
@@ -88,47 +99,186 @@
 	\setcounter{page}{1}
 	\pagenumbering{arabic}
 
-	\section{Daten-Pipeline}
+	\section{Einleitung}
+
+	Im Rahmen des Moduls \emph{Analyse semi- \& unstrukturierter Daten} wurden
+	die von \emph{n-tv} veröffentlichten Artikel im Zeitraum des 17.04.2024 -
+	17.07.2024 gesammelt und nachfolgend analysiert. Das vorliegende Dokument
+	enthält den Code zusammen mit dazugehörigen kurzen Beschreibungen, der zur
+	Sammlung, Verarbeitung und Analyse der Daten verwendet wurde.
+
+	Der Code ist in die Abschnitte Datenerhebung, Datenvorbereitung,
+	Upload-Zeiten-Analyse, Sentiment-Analyse und Topic Modeling unterteilt.
+
+	Jeglicher Code lässt sich ebenfalls in Form von Jupyter Notebooks im
+	GitHub-Repository
+	\href{https://github.com/okaihe/SS2024-ASUD-Textanalyse/tree/main}{n-tv
+		Datenanalyse} finden.
 
 
-	% \vspace{0.5cm}
-	% \begin{figure}[h]
-	% 	\centering
-	% 	\includegraphics[width=12cm]{images/TF-Player.jpeg}
-	% 	\caption{Tf-Video-Player}
-	% \end{figure}
+	\newpage
+	\section{Datenerhebung}
 
-	\appendix
-	\section{Lambda-Funktion zur Sammlung der Artikel}
+	Die folgenden Unterkapitel dokumentieren den Code, der zur Sammlung,
+	Speicherung und Vorverarbeitung für die späteren Analysen verwendet wurde.
 
-	\subsection{Index.mjs}
+	\subsection{Sammelung und Speicherung der Nachrichtenartikel}
 
-	Die Hauptfunktion, die von der Lambda-Funktion aufgerufen wird.
+	\hyperref[fig:datenpipeline]{Abbildung \ref{fig:datenpipeline}} zeigt den
+	grundlegenden Ablauf, durch den die Nachrichtenartikel gespeichert werden.
+	Zunächst wurde in über \emph{AWS Eventbridge} ein Scheduler definiert, der
+	täglich um 00:00 Uhr Lambda-Funktion startet, die wiederum auf die von
+	\emph{n-tv} angebotenen RSS-Schnittstellen zugreift. In den jeweiligen
+	RSS-Feeds für jede Kategorie werden die zuletzt veröffentlichten Artikel
+	mit Links und weiteren Metadaten aufgelistet. Über die Links werden die
+	Artikel anschließend heruntergeladen und in einem \emph{AWS S3-Bucket}
+	gespeichert.
+
+	\begin{figure}[h]
+		\centering
+		\includesvg[width=12cm]{figures/datenpipeline.svg}
+		\caption{Datenpipeline zur Sammeln der \emph{ntv}-Artikel}
+		\label{fig:datenpipeline}
+	\end{figure}
+
+	Die Lambda-Funktion zum Sammeln der Artikel besteht aus vier Dateien.
+	Nachfolgend zu sehen ist die Hauptdatei mit der Einstiegsfunktion:
 
 	\lstinputlisting[language=JavaScript,caption=index.mjs]{../ntv-lambda/index.mjs}
 
-	\newpage
-	\subsection{Categories.mjs}
+	Die Hauptfunktion (async handler) ruft verwendet wiederum die in den anderen
+	drei Dateien \emph{helper.mjs}, \emph{categories.mjs} und
+	\emph{s3Helper.mjs} definierten Funktionen auf, die nachfolgend aufgelistet
+	werden.
 
-	Die verschiedenen NTV-Kategorien, die abgerufen werden sollen.
+	In der \emph{categories.mjs} werden die abzurufenden Kategorien definiert:
 
 	\lstinputlisting[language=JavaScript,caption=categories.mjs]{../ntv-lambda/categories.mjs}
 
-	\newpage
-	\subsection{S3Helper.mjs}
-
-	Funktionen zum Zugriff auf die entsprechenden AWS S3-Buckets.
+	Die \emph{s3Helper.mjs}-Datei stellt Funktionen für den Zugriff auf die
+	entsprechenden S3-Buckets bereit:
 
 	\lstinputlisting[language=JavaScript,caption=s3Helper.mjs]{../ntv-lambda/s3Helper.mjs}
 
-	\newpage
-	\subsection{Helper.mjs}
-
-	Hilfsfunktionen zum Verarbeiten der von NTV empfangenen Daten.
+	In der \emph{helper.mjs}-Datei werden schließlich noch Hilfsfunktionen
+	definiert. Unter anderem Funktionen, die einen Großteil des HTML-Codes aus
+	den Artikeln bereits im Vorfeld entfernt, um Speicherplatz zu sparen. Dazu
+	zählen beispielsweise alle \emph{Script}-Tags, da diese für die weitere
+	Bearbeitung nicht benötigt werden. Durch diese Vorgehensweise wird viel
+	Speicherplatz und damit auch Kosten eingespart.
 
 	\lstinputlisting[language=JavaScript,caption=helper.mjs]{../ntv-lambda/helper.mjs}
 
+	\subsection{Datenvorbereitung}
 
+	Dieser Code dient dem Erstellen einer CSV-Datei, die anschließend als
+	Grundlage für das weitere Vorgehen verwendet wird. Die Funktionen der
+	einzelnen Methoden sollten dabei aus den Funktionsnamen hervorgehen.
+	Grundsätzlich wird über die Ordner und Dateien des AWS lokal
+	heruntergeladenen Buckets iteriert und die Artikel gesammelt. Mit Hilfe von
+	\emph{BeautifulSoup} werden Datum und Artikeltext extrahiert und
+	gespeichert. Anschließend werden die gesammelten Daten in eine CSV-Datei
+	geschrieben. Die CSV-Datei enthält die Spalten date (Datum), time (Uhrzeit),
+	category (Kategorie), headline (Überschrift), filename (Dateiname) und text
+	(Artikeltext).
+
+	\lstinputlisting[language=Python,caption=Datengenerierung]{./1-1-generation.py}
+
+	\section{Analysevorbereitung}
+
+	Bevor die Daten auf einzelne Aspekte hin analyisiert werden, müssen die
+	Daten noch weiter aufbereitet werden und die Sentiment-Analyse und
+	Stichwortgenerierung durchgeführt werden.
+
+	\subsection{Vorbereitung der Upload-Analyse}
+
+	Für die Upload-Analyse werden die CSV-Datei um die Spalten upload-hour
+	(Stunde des Uploads), weekday (Wochentag) und length (Artikellänge)
+	erweitert.
+
+	\lstinputlisting[language=Python,caption=Vorbereitung zur Uploadanalyse]{./1-2-upload.py}
+
+	\subsection{Vorbereitung zur Themenanalyse}
+
+	Für den ersten Ansatz der Themenanalyse müssen Stichwörter zu jedem Artikel
+	generiert werden. Dies geschieht mit Hilfe des OpenAI-Sprachmodells
+	\emph{GPT-4o mini}, auf das über die OpenAI-REST-API zugegriffen wird und
+	das zu jedem Artikel zehn Stichwörter generiert. Die Stichwörter werden
+	anschließend der CSV-Datei hinzugefügt:
+
+	\lstinputlisting[language=Python,caption=Vorbereitung zur Stichwortanalyse,inputencoding=utf8]{./1-3-keywords.py}
+
+	\subsection{Durchführung Sentiment-Analyse}
+
+	\raggedright
+	Um die Sentiments der Artikel genauer untersuchen zu können, müssen diese
+	zunächst identifiziert werden. Dazu wird die CSV-Datei um die Spalten
+	\texttt{sentiment\_headline}, \texttt{sentiment\_text}, \texttt{sentiment\_prop\_headline\_positive},
+	\texttt{sentiment\_prop\_headline\_neutral}, \texttt{sentiment\_prop\_headline\_negative},
+	\texttt{sentiment\_prop\_text\_positive}, \texttt{sentiment\_prop\_text\_neutral},
+	\texttt{sentiment\_prop\_text\_negative} erweitert.
+	\raggedright
+
+	\lstinputlisting[language=Python,caption=Vorbereitung zur Sentiment-Untersuchung,inputencoding=utf8]{./1-4-sentiment.py}
+
+
+	\section{Analyse der Daten}
+
+	\subsection{Analyse des Uploadverhaltens}
+
+	Im nachfolgenden sind die Funktionen, die zur Erstellung der Diagramme
+	verwendet wurden. Diese sollten in einzelnen Zellen in einem
+	Jupyter-Notebook ausgeführt werden, um die Ergebnisse direkt sehen zu
+	können.
+
+	\lstinputlisting[language=Python,caption=Analyse der Uploadzeiten,inputencoding=utf8]{./3-1-upload-analyse.py}
+
+	\subsection{Analyse der Sentiments}
+
+	Der im Anschluss aufgeführte Code enthält die Funktionen zur Generierung von
+	Visualisierungen zu den Sentiments. Auch diese sollten vorzugsweise in einem
+	Jupyter Notebook in einzelnen Zellen ausgeführt werden, um die Diagramme
+	sehen zu können.
+
+	\lstinputlisting[language=Python,caption=Analyse der Sentiments,inputencoding=utf8]{./3-2-sentiment-analysis.py}
+
+	\subsection{Topic-Analyse über Stichwörter}
+
+	Ziel der Analyse über die Stichwörter ist die Generierung einer Karte, die
+	die Topics als Netzwerk zeigt. Dazu wird eine Graphdatei aus den Daten
+	erstellt, die anschließend in Gephi importiert werden kann. Die Gephi-Datei
+	ist ebenso dem Upload angefügt. Die Stichwörter werden dazu zunächst
+	auseinandergenommen und in einem neuen Dataframe gespeichert. Anschließend
+	werden über die Zeilen iteriert und Informationen über Häufigkeite der
+	einzelnen Stichwörter und Häufigkeit über Kombinationen von Stichwörtern
+	gesammelt. Diese Informationen werden anschließend \emph{networkx}
+	übergeben, der daraus ein GraphML-Datei erzeugt, die in Gephi importiert
+	werden kann.
+
+	\lstinputlisting[language=Python,caption=Erstellung der Graph-Datei,inputencoding=utf8]{./3-3-keywords.py}
+
+	\subsection{Topic-Analyse über Topic Modeling}
+
+	Als zweiter Ansatz zur Untersuchung der Themen wurden \emph{BERTopic}
+	verwendet. Bertopic bietet neben der Extrahierung der Themen auch zahlreiche
+	Funktionen zur Visualisierung. Wie in den anderen Abschnitten sollte auch
+	der Code zur Visualisierung in einem Jupyter Notebook in einzelnen Zellen
+	aufgerufen werden. So können die Ergebnisse direkt betrachtet und interaktiv
+	verwendet werden.
+
+	\lstinputlisting[language=Python,caption=Erstellung der Graph-Datei,inputencoding=utf8]{./3-4-topic-modeling.py}
+
+	\section{Fazit}
+
+	Dank moderner Algorithmen und zahlreicher Python-Packages lassen sich solche
+	Analyseprojekte heutzutage auch mit relativ wenigen Vorkenntnissen im
+	Themenbereich gut umsetzen. Gerade die \emph{Matplotlib} stellt bei der
+	Erstellung Diagrammen bzw. der Visualisierung von Ergebnissen eine große
+	Hilfe dar. Dank der modernen Entwicklung im Bereich KI lassen sich auch
+	nachträglich zu fremden Texten Stichwörter generieren, was bei der
+	Erforschung der Themen und der Erstellung des Netzwerks stark geholfen hat.
+	\emph{BERTopic} hat sich ebenfalls als gute Wahl zur Erforschung der Themen
+	erwiesen, da es gleichzeitig zahlreiche Visualisierungsmöglichkeiten bietet.
 
 \end{sloppypar}
 \end{document}

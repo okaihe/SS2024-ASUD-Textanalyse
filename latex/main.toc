@@ -1,0 +1,15 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {section}{\numberline {1}Einleitung}{1}{section.1}%
+\contentsline {section}{\numberline {2}Datenerhebung}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Sammelung und Speicherung der Nachrichtenartikel}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Datenvorbereitung}{7}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Analysevorbereitung}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Vorbereitung der Upload-Analyse}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Vorbereitung zur Themenanalyse}{11}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Durchführung Sentiment-Analyse}{12}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Analyse der Daten}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Analyse des Uploadverhaltens}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Analyse der Sentiments}{19}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Topic-Analyse über Stichwörter}{23}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Topic-Analyse über Topic Modeling}{24}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Fazit}{27}{section.5}%

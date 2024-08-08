@@ -1,10 +1,11 @@
 # Fdb version 4
-["pdflatex"] 1723061700.11621 "main.tex" "main.pdf" "main" 1723061701.68098 0
+["pdflatex"] 1723123839.98703 "main.tex" "main.pdf" "main" 1723123841.56119 0
   "../ntv-lambda/categories.mjs" 1717112462.88061 292 255e20ef65deb97c74f6be6aae46f5d1 ""
   "../ntv-lambda/helper.mjs" 1717853032.14164 2583 18d3d7b939c2b2d61185865820645c0b ""
   "../ntv-lambda/index.mjs" 1717112443.50682 1148 6e90f7c086cad2760b0ec487850f4dd4 ""
   "../ntv-lambda/s3Helper.mjs" 1717112450.78282 643 30f705b2315f6a0e0da436621f8b73e8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1136768653 3584 402da0b29eafbad07963b1224b222f18 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ecbx1728.tfm" 1136768653 3584 ad49a18d8515beef6d92d4d3f197d0fd ""
@@ -18,6 +19,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ecti1440.tfm" 1136768653 3072 9a80c2966d6c06d677719db0a9b772d0 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ectt1095.tfm" 1136768653 1536 a988bfe554c1f79514bd46d13c3c64ce ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ectt1200.tfm" 1136768653 1536 487c9b46984a816c7ed238d0674595c7 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1136768653 1524 4414a8315f39513458b80dfc63bff03a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm" 1136768653 1512 f21f83efb36853c0b70002322c1ab3ad ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm" 1136768653 1520 eccf95517727cb11801f4f1aee3a21b4 ""
@@ -148,10 +150,10 @@
   "3-4-topic-modeling.py" 1723061237.47608 4659 82b461d8fb2c81b525f69fb95c418acd ""
   "figures/datenpipeline.svg" 1723049387.11456 215826 9d47b296a317afe7c839168a86d5cc57 ""
   "figures/logo.png" 1721597542.7815 35442 ce05ad66476aefdbf8bd49767b3a2233 ""
-  "main.aux" 1723061701.55253 4189 eda6016af34d9daad78f5aab45c6b8dc "pdflatex"
-  "main.out" 1723061701.55376 2470 d6e8f35f215d7158e77a1d43292adaae "pdflatex"
-  "main.tex" 1723061699.58777 11091 6e4369d9842a13cf3567fcad41f7121b ""
-  "main.toc" 1723061701.55451 1250 0b51d3565cad66ac15ae925f6185e7de "pdflatex"
+  "main.aux" 1723123841.45126 4189 9465021f7d8763cc2cde7d15797d37d5 "pdflatex"
+  "main.out" 1723123841.4542 2470 d6e8f35f215d7158e77a1d43292adaae "pdflatex"
+  "main.tex" 1723123837.09697 11192 ea235a3641b0f3fcdbc22adefad4b5ab ""
+  "main.toc" 1723123841.4547 1250 4e8d087674cdd2a80d2b7dcc0fe10363 "pdflatex"
   "svg-inkscape/datenpipeline_svg-tex.pdf" 1723049389.65019 73278 829bc8b8a22828b66c02226d8ab1d3a2 ""
   "svg-inkscape/datenpipeline_svg-tex.pdf_tex" 1723049389.65048 2095 d0c069116395d9aaf4dd46aa936100c1 ""
   (generated)

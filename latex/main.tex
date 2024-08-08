@@ -12,7 +12,7 @@
 \usepackage{caption}
 \usepackage{listings}
 \usepackage{color}
-\usepackage[parfill]{parskip}
+\usepackage{parskip}
 \usepackage[ngerman]{babel}
 \usepackage{microtype}
 \usepackage{svg}
@@ -146,7 +146,7 @@
 
 	\lstinputlisting[language=JavaScript,caption=index.mjs]{../ntv-lambda/index.mjs}
 
-	Die Hauptfunktion (async handler) ruft verwendet wiederum die in den anderen
+	Die Hauptfunktion (async handler) verwendet wiederum die in den anderen
 	drei Dateien \emph{helper.mjs}, \emph{categories.mjs} und
 	\emph{s3Helper.mjs} definierten Funktionen auf, die nachfolgend aufgelistet
 	werden.
@@ -186,9 +186,9 @@
 
 	\section{Analysevorbereitung}
 
-	Bevor die Daten auf einzelne Aspekte hin analyisiert werden, müssen die
-	Daten noch weiter aufbereitet werden und die Sentiment-Analyse und
-	Stichwortgenerierung durchgeführt werden.
+	Bevor die Daten auf einzelne Aspekte hin analysiert werden, müssen die Daten
+	noch weiter aufbereitet und die Sentiment-Analyse und Stichwortgenerierung
+	durchgeführt werden.
 
 	\subsection{Vorbereitung der Upload-Analyse}
 
@@ -210,17 +210,21 @@
 
 	\subsection{Durchführung Sentiment-Analyse}
 
-	\raggedright
 	Um die Sentiments der Artikel genauer untersuchen zu können, müssen diese
-	zunächst identifiziert werden. Dazu wird die CSV-Datei um die Spalten
-	\texttt{sentiment\_headline}, \texttt{sentiment\_text}, \texttt{sentiment\_prop\_headline\_positive},
-	\texttt{sentiment\_prop\_headline\_neutral}, \texttt{sentiment\_prop\_headline\_negative},
-	\texttt{sentiment\_prop\_text\_positive}, \texttt{sentiment\_prop\_text\_neutral},
-	\texttt{sentiment\_prop\_text\_negative} erweitert.
-	\raggedright
+	zunächst identifiziert werden. Dazu wird die CSV-Datei folgende Spalten
+    erweitert:
+    \begin{itemize}
+        \item \texttt{sentiment\_headline}
+	    \item \texttt{sentiment\_text}
+        \item \texttt{sentiment\_prop\_headline\_positive}
+	    \item \texttt{sentiment\_prop\_headline\_neutral}
+        \item \texttt{sentiment\_prop\_headline\_negative}
+	    \item \texttt{sentiment\_prop\_text\_positive}
+        \item \texttt{sentiment\_prop\_text\_neutral}
+	    \item \texttt{sentiment\_prop\_text\_negative}
+    \end{itemize}
 
 	\lstinputlisting[language=Python,caption=Vorbereitung zur Sentiment-Untersuchung,inputencoding=utf8]{./1-4-sentiment.py}
-
 
 	\section{Analyse der Daten}
 
@@ -249,7 +253,7 @@
 	erstellt, die anschließend in Gephi importiert werden kann. Die Gephi-Datei
 	ist ebenso dem Upload angefügt. Die Stichwörter werden dazu zunächst
 	auseinandergenommen und in einem neuen Dataframe gespeichert. Anschließend
-	werden über die Zeilen iteriert und Informationen über Häufigkeite der
+	wird über die Zeilen iteriert und Informationen über Häufigkeite der
 	einzelnen Stichwörter und Häufigkeit über Kombinationen von Stichwörtern
 	gesammelt. Diese Informationen werden anschließend \emph{networkx}
 	übergeben, der daraus ein GraphML-Datei erzeugt, die in Gephi importiert
@@ -268,12 +272,13 @@
 
 	\lstinputlisting[language=Python,caption=Erstellung der Graph-Datei,inputencoding=utf8]{./3-4-topic-modeling.py}
 
+    \newpage
 	\section{Fazit}
 
 	Dank moderner Algorithmen und zahlreicher Python-Packages lassen sich solche
 	Analyseprojekte heutzutage auch mit relativ wenigen Vorkenntnissen im
-	Themenbereich gut umsetzen. Gerade die \emph{Matplotlib} stellt bei der
-	Erstellung Diagrammen bzw. der Visualisierung von Ergebnissen eine große
+	Themenbereich gut umsetzen. Gerade das Package \emph{Matplotlib} stellt bei
+	der Erstellung Diagrammen bzw. der Visualisierung von Ergebnissen eine große
 	Hilfe dar. Dank der modernen Entwicklung im Bereich KI lassen sich auch
 	nachträglich zu fremden Texten Stichwörter generieren, was bei der
 	Erforschung der Themen und der Erstellung des Netzwerks stark geholfen hat.

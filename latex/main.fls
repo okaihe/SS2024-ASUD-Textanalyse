@@ -297,10 +297,12 @@ INPUT ./1-2-upload.py
 INPUT ./1-3-keywords.py
 INPUT ./1-3-keywords.py
 INPUT ./1-3-keywords.py
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/ectt1200.tfm
 INPUT ./1-4-sentiment.py
 INPUT ./1-4-sentiment.py
 INPUT ./1-4-sentiment.py
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT ./3-1-upload-analyse.py
 INPUT ./3-1-upload-analyse.py
 INPUT ./3-1-upload-analyse.py
